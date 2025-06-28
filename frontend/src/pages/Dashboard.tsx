@@ -1,15 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getToken } from '../components/auth/api';
+import JobList from '../components/jobs/JobList';
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
-  
-  useEffect(() => {
-    if (!getToken()) {
-      navigate('/');
-    }
-  }, [navigate]);
   
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -18,42 +13,55 @@ const Dashboard: React.FC = () => {
   
   return (
     <div style={{ 
-      padding: '20px', 
-      maxWidth: '800px', 
-      margin: '50px auto', 
-      border: '1px solid #ccc', 
-      borderRadius: '8px',
-      backgroundColor: '#f9f9f9'
+      minHeight: '100vh',
+      backgroundColor: '#f8f9fa'
     }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <h2 style={{ color: '#333', margin: 0 }}>Welcome to the Dashboard!</h2>
-        <button 
-          onClick={handleLogout}
-          style={{ 
-            padding: '8px 16px', 
-            backgroundColor: '#dc3545', 
-            color: 'white', 
-            border: 'none', 
-            borderRadius: '4px', 
-            cursor: 'pointer'
-          }}
-        >
-          Logout
-        </button>
-      </div>
-      <div style={{ 
-        padding: '20px', 
-        backgroundColor: 'white', 
-        borderRadius: '4px', 
-        border: '1px solid #ddd' 
+      <header style={{ 
+        backgroundColor: 'white',
+        borderBottom: '1px solid #e9ecef',
+        padding: '15px 20px',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
       }}>
-        <p style={{ fontSize: '16px', color: '#666', marginBottom: '15px' }}>
-          This is a protected route. You have successfully logged in!
-        </p>
-        <p style={{ fontSize: '14px', color: '#888' }}>
-          You can now access all the features of the application.
-        </p>
-      </div>
+        <div style={{ 
+          maxWidth: '1200px', 
+          margin: '0 auto',
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          alignItems: 'center'
+        }}>
+          <h1 style={{ 
+            color: '#2c3e50',
+            fontFamily: 'Raleway',
+            margin: 0,
+            fontSize: '1.5rem',
+            fontWeight: '600'
+          }}>
+            NextStep
+          </h1>
+          <button 
+            onClick={handleLogout}
+            style={{ 
+              padding: '8px 16px', 
+              backgroundColor: '#dc3545', 
+              color: 'white', 
+              border: 'none', 
+              borderRadius: '6px', 
+              cursor: 'pointer',
+              fontSize: '0.9rem',
+              fontWeight: '500',
+              transition: 'background-color 0.2s ease'
+            }}
+            onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#c82333'}
+            onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#dc3545'}
+          >
+            Logout
+          </button>
+        </div>
+      </header>
+      
+      <main>
+        <JobList />
+      </main>
     </div>
   );
 };
